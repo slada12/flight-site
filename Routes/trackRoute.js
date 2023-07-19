@@ -88,7 +88,8 @@ route.post('/edit', async (req, res) => {
     const user = await TrackModel.findOne({ trackCode: req.body.trackCode });
     console.log(req.body.trackCode);
     const data = await TrackModel.findOneAndUpdate({ trackCode: req.body.trackCode }, {
-        status: !user.status
+        status: !user.status,
+        mode: !user.mode,
     });
 
     data.save();

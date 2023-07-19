@@ -17,6 +17,10 @@ const TrackModel = new Schema({
         type: Boolean,
         default: false,
     },
+    mode: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 module.exports = mongoose.model('TrackCode', TrackModel);
