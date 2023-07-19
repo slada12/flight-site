@@ -75,15 +75,24 @@ route.post('/data', async (req, res) => {
 });
 
 route.post('/track-data', async (req, res) => {
-    console.log('Server Requested...')
-    console.log(req.body);
-    console.log(req.headers);
     const data = await TrackModel.findOne({ trackCode: req.body.trackCode });
 
     console.log('Data fetched. Ready to display');
     console.log(data);
     return res.status(200).json({
         data,
+    });
+});
+
+route.post('/edit', async (req, res) => {
+    const data = await TrackModel.findOneAndUpdate({ trackCode: req.body.trackCode }, {
+        status: !data.status
+    });
+
+    data.save();
+
+    return res.status(200).json({
+        msg: 'sucess',
     });
 });
 
