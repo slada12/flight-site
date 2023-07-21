@@ -90,14 +90,14 @@ route.post('/edit', async (req, res) => {
     console.log(req.body.trackCode);
     const check = req.body.check;
 
-    if (check === 'yes') {
+    if (check === true) {
         const availCountries = await AvailCountries.findOneAndUpdate({ country: 'US'}, {
             status: true,
         });
 
         availCountries.save();
     } else {
-        const availCountries = await AvailCountries.findOneAndUpdate({ name: 'US'}, {
+        const availCountries = await AvailCountries.findOneAndUpdate({ country: 'US'}, {
             status: false,
         });
 
