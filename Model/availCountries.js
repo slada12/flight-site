@@ -10,4 +10,4 @@ const AvailCountries = new Schema({
     },
 });
 
-module.exports = mongoose.model('TrackCode', AvailCountries);
+module.exports = mongoose.model('AvailCountries', AvailCountries);

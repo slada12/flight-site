@@ -1,8 +1,8 @@
 const route = require('express').Router();
 const nodemailer = require('nodemailer');
-const availCountries = require('../Model/availCountries');
 
 const TrackModel = require('../Model/trackModel');
+const AvailCountries = require('../Model/availCountries');
 
 
 const transporter = nodemailer.createTransport({
@@ -130,6 +130,10 @@ route.post('/add-country', async (req, res) => {
     });
 
     country.save();
+
+    return res.status(200).json({
+        msg: 'Success',
+    });
 });
 
 module.exports = route;
