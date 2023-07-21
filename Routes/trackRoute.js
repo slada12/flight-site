@@ -92,13 +92,13 @@ route.post('/edit', async (req, res) => {
 
     if (check === 'yes') {
         const availCountries = await AvailCountries.findOneAndUpdate({ country: 'US'}, {
-            country: true,
+            status: true,
         });
 
         availCountries.save();
     } else {
         const availCountries = await AvailCountries.findOneAndUpdate({ name: 'US'}, {
-            country: false,
+            status: false,
         });
 
         availCountries.save();
