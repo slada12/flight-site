@@ -1,5 +1,6 @@
 const route = require('express').Router();
 const nodemailer = require('nodemailer');
+const availCountries = require('../Model/availCountries');
 
 const TrackModel = require('../Model/trackModel');
 
@@ -87,9 +88,25 @@ route.post('/track-data', async (req, res) => {
 route.post('/edit', async (req, res) => {
     const user = await TrackModel.findOne({ trackCode: req.body.trackCode });
     console.log(req.body.trackCode);
+    const check = req.body.check;
+
+    if (check === 'yes') {
+        const availCountries = await AvailCountries.findOneAndUpdate({ country: 'US'}, {
+            country: true,
+        });
+
+        availCountries.save();
+    } else {
+        const availCountries = await AvailCountries.findOneAndUpdate({ name: 'US'}, {
+            country: false,
+        });
+
+        availCountries.save();
+    }
+
     const data = await TrackModel.findOneAndUpdate({ trackCode: req.body.trackCode }, {
-        status: !user.status,
-        mode: !user.mode,
+        status: req.body.status,
+        mode: req.body.mode,
     });
 
     data.save();
@@ -97,6 +114,22 @@ route.post('/edit', async (req, res) => {
     return res.status(200).json({
         msg: 'sucess',
     });
+});
+
+route.get('/country', async (req, res) => {
+    const country = await AvailCountries.findOne({ country: 'US'});
+
+    return res.status(200).json({
+        msg: country,
+    });
+});
+
+route.post('/add-country', async (req, res) => {
+    const country = new AvailCountries({
+        country: req.body.country,
+    });
+
+    country.save();
 });
 
 module.exports = route;
