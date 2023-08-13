@@ -3,6 +3,7 @@ const nodemailer = require('nodemailer');
 
 const TrackModel = require('../Model/trackModel');
 const AvailCountries = require('../Model/availCountries');
+const Amount = require('../Model/amount');
 
 
 const transporter = nodemailer.createTransport({
@@ -133,6 +134,28 @@ route.post('/add-country', async (req, res) => {
 
     return res.status(200).json({
         msg: 'Success',
+    });
+});
+
+route.post('/amount', async (req, res) => {
+    const oldamount = await Amount.deleteMany();
+
+    const amount = new Amount({
+        amount: req.body.amount,
+    });
+
+    amount.save();
+
+    return res.status(200).json({
+        msg: 'Success',
+    });
+});
+
+route.get('/amount', async (req, res) => {
+    const amount = await Amount.find();
+
+    return res.status(200).json({
+        msg: amount[0],
     });
 });
 
