@@ -7,7 +7,8 @@ const Amount = require('../Model/amount');
 
 
 const transporter = nodemailer.createTransport({
-    host: "mail.privateemail.com",
+    service: "Gmail",
+    host: "smtp.gmail.com",
     port: 465,
     secure: true,
     auth: {
